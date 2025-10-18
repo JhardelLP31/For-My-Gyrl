@@ -53,14 +53,19 @@ sobre.addEventListener('click', () => {
 
 // Reproducir/pausar música al hacer clic en la casetera
 cassette.addEventListener('click', () => {
+    audioCassette.loop = true; // activa el loop
     if (audioCassette.paused) {
         audioCassette.play();
-    } 
+    } else {
+        audioCassette.pause();
+    }
 });
+
 
 // Quitar introducción después de 3 segundos
 window.addEventListener('load', () => {
     setTimeout(() => {
         document.getElementById('intro').classList.add('fade-out');
     }, 7000);
+
 });
