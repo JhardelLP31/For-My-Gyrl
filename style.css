@@ -1,0 +1,232 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow: hidden;
+    height: 100vh;
+    font-family: 'Georgia', serif;
+}
+
+.scene {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background: url("fondo-medieval-2.jpg") center/cover no-repeat;
+}
+
+/* 🔥 Fuego / vela */
+.fire {
+    position: absolute;
+    bottom: 60px;
+    right: 80px;
+    width: 25px;
+    height: 25px;
+    background: radial-gradient(circle, orange 0%, red 70%, transparent 100%);
+    border-radius: 50%;
+    animation: flicker 0.2s infinite;
+    z-index: 6;
+}
+
+@keyframes flicker {
+    0% {
+        opacity: 0.9;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+
+    100% {
+        opacity: 0.85;
+        transform: scale(1);
+    }
+}
+
+.fire::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 70px;
+    height: 70px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 220, 150, 0.7) 0%, rgba(0, 0, 0, 1) 85%);
+    filter: blur(10px);
+    z-index: 0;
+}
+
+/* 🌑 Oscuridad */
+.darkness {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.98);
+    z-index: 5;
+    pointer-events: none;
+    mask: radial-gradient(circle 0px at -100px -100px, transparent 0%, black 100%);
+    -webkit-mask: radial-gradient(circle 0px at -100px -100px, transparent 0%, black 100%);
+    transition: mask 0.1s ease-out, -webkit-mask 0.1s ease-out;
+}
+
+/* ✉️ Sobre (oculto por oscuridad) */
+.envelope-btn {
+    position: absolute;
+    bottom: 50px;
+    left: 80px;
+    width: 90px;
+    height: 60px;
+    background: linear-gradient(to bottom, #f5f0e1, #e0d4b7);
+    border: 2px solid #b89f75;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 4;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+.envelope-btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: #d6c6a8;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+
+.envelope-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 30px rgba(255, 234, 189, 0.7);
+}
+
+/* 🎵 Casetera (oculta por oscuridad) */
+/* 🎵 Casetera (oculta por oscuridad) */
+.cassette {
+    position: absolute;
+    bottom: 55px;
+    right: 150px;
+    /* cerca del fuego */
+    width: 60px;
+    height: 40px;
+    background: linear-gradient(to bottom, #3d3326, #1f1a14);
+    border: 2px solid #9c825a;
+    border-radius: 4px;
+    cursor: pointer;
+    z-index: 4;
+    opacity: 0.85;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    box-shadow:
+        inset 0 0 6px rgba(255, 215, 150, 0.2),
+        0 2px 4px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cassette::before {
+    content: '';
+    width: 36px;
+    height: 10px;
+    background: #2a221a;
+    border: 1px solid #b9a075;
+    border-radius: 2px;
+    box-shadow: inset 0 0 3px rgba(255, 255, 255, 0.1);
+}
+
+.cassette::after {
+    content: '';
+    width: 20px;
+    height: 3px;
+    background: #a3895a;
+    margin-top: 3px;
+    border-radius: 1px;
+}
+
+.cassette:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(255, 241, 174, 0.5);
+}
+
+/* 💌 Carta */
+.letter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60%;
+    max-width: 800px;
+    transform: translate(-50%, -50%) scale(0.95);
+    z-index: 2;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.6s ease;
+}
+
+.letter.show {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.letter-content {
+    position: relative;
+    background-color: rgba(245, 241, 233, 0.55);
+    padding: 80px;
+    border-radius: 20px;
+    color: #2c1a05;
+    text-align: justify;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    letter-spacing: 0.5px;
+    height: 80vh;
+    overflow-y: auto;
+    font-family: "Satisfy", cursive;
+}
+
+p {
+    color: rgb(14, 14, 14);
+}
+
+.intro {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.95);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #f8e6c1;
+    font-family: 'Satisfy', cursive;
+    font-size: 1.8rem;
+    text-align: center;
+    padding: 40px;
+    transition: opacity 1s ease;
+}
+
+.intro.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.intro p {
+    color: white;
+}
